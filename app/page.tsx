@@ -1,17 +1,15 @@
 "use client"
-import { TextField, Button, IconButton, Link as MUILink} from "@mui/material"
-import { Textarea } from "@mui/joy"
+import { TextField, Button, Link as MUILink} from "@mui/material"
+// import { Textarea } from "@mui/joy"
 import createUrlAlias from "./components/createUrlAlias"
 import { useState } from "react"
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ErrorIcon from '@mui/icons-material/Error';
-import Link from "next/link"
 
 export default function Home() {
   const style = "text-black"
   const [url, setUrl] = useState("")
   const [alias, setAlias] = useState("")
-  const [finalAlias, setFinalAlias] = useState("")
   const [shortUrl, setShortUrl] = useState("")
   const [err, setError] = useState("")
   const [success, setSuccess] = useState(false)
@@ -31,12 +29,15 @@ export default function Home() {
             const u = await createUrlAlias(url, alias, browserUrl)
             setLoading(false)
             setShortUrl(u)
-            setFinalAlias(alias)
             setSuccess(true)
-          } catch(err: any){
-            setLoading(false)
-            setError(err.message)
-          }
+            } catch (err) {
+              if (err instanceof Error) {
+                setError(err.message)
+              } else {
+                setError("An unknown error occurred.")
+              }
+            }
+          
       }} 
       >
         <h3 className={style}>URL</h3>
