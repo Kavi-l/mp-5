@@ -31,6 +31,7 @@ export default function Home() {
             setShortUrl(u)
             setSuccess(true)
             } catch (err) {
+              setLoading(false)
               if (err instanceof Error) {
                 setError(err.message)
               } else {
