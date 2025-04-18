@@ -85,9 +85,9 @@ export default function Home() {
       </div>
       {err !== "" ? <p className="text-red-400 self-center font-bold mt-8"><ErrorIcon/>{err}</p> : null}
       {success === true ? (
-        <div className="flex justify-between mt-4">
+        <div className="flex flex-col justify-between mt-4 lg:flex-row">
           <MUILink
-            className="underline text-blue-600"
+            className="underline text-blue-600 w-full break-words"
             href={`/${alias}`}
             target="_blank"
             underline="hover"
@@ -96,11 +96,15 @@ export default function Home() {
           </MUILink>
 
           <Button
+            className="self-center"
             variant="outlined"
             endIcon={<ContentCopyIcon/>}
             onClick={
               () => navigator.clipboard.writeText(shortUrl)
             }
+            sx={{
+              width: "100px"
+            }}
           >
             copy
           </Button>
