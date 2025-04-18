@@ -23,22 +23,17 @@ export default function Home() {
           event.preventDefault();
           setError("")
           setSuccess(false)
-          try {
-            const browserUrl = `${window.location.origin}`
-            setLoading(true)
-            const u = await createUrlAlias(url, alias, browserUrl)
-            setLoading(false)
-            setShortUrl(u)
+          const browserUrl = `${window.location.origin}`
+          setLoading(true)
+          const u = await createUrlAlias(url, alias, browserUrl)
+          setLoading(false)
+          if (u.success) {
             setSuccess(true)
-            } catch (err) {
-              setLoading(false)
-              if (err instanceof Error) {
-                setError(err.message)
-              } else {
-                setError("An unknown error occurred.")
-              }
-            }
-          
+            setShortUrl(u.result)
+          } else {
+            setSuccess(false)
+            setError(u.result)
+          }
       }} 
       >
         <h3 className={style}>URL</h3>
@@ -60,7 +55,7 @@ export default function Home() {
         <TextField
           sx= {{}}
           type="text"
-          label="alias"
+          label="Alias"
           size="small"
           value={alias}
           onChange={(e) => setAlias(e.target.value)}

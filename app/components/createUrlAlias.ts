@@ -5,18 +5,20 @@ export default async function createUrlAlias(
   url: string,
   alias: string, 
   browserUrl: string
-): Promise<string> {
+){
   const urlsCollection = await getCollection(URLS_COLLECTION);
 
   // Check if alias already exists
   const existing = await urlsCollection.findOne({ alias });
   if (existing) {
-    throw new Error("Alias already exists");
+    // throw new Error("Alias already exists");
+    return {success: false, result: "Alias already exists" };
   }
 
   const regex = /^https?:\/\/[\w.-]+(?:\/[^\s]*)?$/i;
   if (!regex.test(url)) {
-    throw new Error("INVALID URL")
+    // throw new Error("INVALID URL")
+    return {success: false, result: "INVALID URL" };
   }
 
   const shortUrl = `${browserUrl}/${alias}`
@@ -33,5 +35,5 @@ export default async function createUrlAlias(
     throw new Error("DB insert failed");
   }
 
-  return shortUrl
+  return {success: true, result: shortUrl}
 }
