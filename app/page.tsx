@@ -1,7 +1,7 @@
 "use client"
 import { TextField, Button, Link as MUILink} from "@mui/material"
 // import { Textarea } from "@mui/joy"
-import createUrlAlias from "./components/createUrlAlias"
+import createUrlAlias from "../lib/createUrlAlias"
 import { useState } from "react"
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ErrorIcon from '@mui/icons-material/Error';
@@ -78,11 +78,11 @@ export default function Home() {
       <div>
         
       </div>
-      {err !== "" ? <p className="text-red-400 self-center font-bold mt-8"><ErrorIcon/>{err}</p> : null}
+      {err !== "" ? <p className="text-red-400 self-center font-bold mt-8 flex justify-center"><ErrorIcon/>{err}</p> : null}
       {success === true ? (
         <div className="flex flex-col justify-between mt-4 lg:flex-row">
           <MUILink
-            className="underline text-blue-600 w-full break-words"
+            className="underline text-blue-600 break-words"
             href={`/${alias}`}
             target="_blank"
             underline="hover"
