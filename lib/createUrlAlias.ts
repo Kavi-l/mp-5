@@ -15,7 +15,10 @@ export default async function createUrlAlias(
     return {success: false, result: "Alias already exists" };
   }
 
-  const regex = /^https?:\/\/[\w.-]+(?:\/[^\s]*)?$/i;
+  const regex = /^https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/\S*)?$/i;
+
+  url = url.trim();
+
   if (!regex.test(url)) {
     // throw new Error("INVALID URL")
     return {success: false, result: "INVALID URL" };
